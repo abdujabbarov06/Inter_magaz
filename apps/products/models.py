@@ -1,6 +1,6 @@
 from django.db import models
 from apps.categories.models import Category
-
+from apps.users.models import User
 
 class Product(models.Model):
     title = models.CharField(max_length=250)
@@ -16,3 +16,9 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_like')
+
+    def __str__(self):
+        return f"{self.user} - {self.product}"
